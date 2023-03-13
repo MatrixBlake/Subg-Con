@@ -6,6 +6,7 @@ import random
 import numpy as np
 from torch_geometric.datasets import Planetoid
 import torch_geometric.transforms as T
+import time
 
 from utils_mp import Subgraph, preprocess
 from subgcon import SugbCon
@@ -102,6 +103,7 @@ if __name__ == '__main__':
     max_val = 0
     stop_cnt = 0
     patience = 20
+    tt = time.time()
     
     for epoch in range(10000):
         loss = train(epoch)
@@ -119,4 +121,5 @@ if __name__ == '__main__':
         if stop_cnt >= patience:
             break
     print('best_acc_from_val = {}'.format(best_acc_from_val))
+    print(time.time()-tt,"s")
 
