@@ -35,7 +35,7 @@ if __name__ == '__main__':
     num_classes = data.num_classes
     data = data[0]
     num_node = data.x.size(0)
-    data.x = np.eye(num_node)
+    data.x = torch.FloatTensor(np.eye(num_node))
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Setting up the subgraph extractor
