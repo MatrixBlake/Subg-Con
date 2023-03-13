@@ -34,6 +34,7 @@ if __name__ == '__main__':
     num_classes = data.num_classes
     data = data[0]
     num_node = data.x.size(0)
+    data.x = np.eye(num_node)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # Setting up the subgraph extractor
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     
     # Setting up the model and optimizer
     model = SugbCon(
-        hidden_channels=args.hidden_size, encoder=Encoder(data.num_features, args.hidden_size),
+        hidden_channels=args.hidden_size, encoder=Encoder(num_node, args.hidden_size),
         pool=Pool(in_channels=args.hidden_size),
         scorer=Scorer(args.hidden_size)).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
